@@ -1,0 +1,7 @@
+awscli==1.11.11
+boto3==1.4.0
+feedgen==0.4.0
+feedparser==5.2.1
+python-lambda==0.4.0
+bs4
+python-dateutil==2.6.0
