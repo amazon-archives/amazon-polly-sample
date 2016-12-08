@@ -16,6 +16,7 @@ Some technical experience is required to setup your own instance of the app, but
 1. Login to your AWS account.
 2. Create a new S3 bucket that will be used to store synthesized audio.
     * Go to the bucket properties->Permissions->Add bucket policy and paste the following policy:
+    
         ```
         {
             "Version": "2012-10-17",
@@ -38,6 +39,7 @@ Some technical experience is required to setup your own instance of the app, but
 5. Choose "Create a custom role" in the "Role" field, which will open a new tab.
     * In the newly opened tab, change "IAM Role" to "Create a new IAM Role", and choose an arbitrary name for the role.
     * Expand "View Policy Document", click the "Edit" link, and paste the following content into the text area:
+    
         ```
         {
         "Version": "2012-10-17",
@@ -53,7 +55,8 @@ Some technical experience is required to setup your own instance of the app, but
 8. Optional check to prove that the new function works as expected:
     * Click "Test" at the top of the page.
     * Use the following JSON document as test even input:
-        ```javascript
+    
+        ```
         {
           "rss": "http://feeds.feedburner.com/AmazonWebServicesBlog", 
           "bucket": "YOUR_BUCKET_NAME"
@@ -67,7 +70,8 @@ Some technical experience is required to setup your own instance of the app, but
     * Go to "Events" and click "Create rule".
     * Select "Schedule" in "Event selector".
     * In the "Targets" section, choose "Lambda function", and then choose the newly created function. Expand "Configure input", choose "Constant (JSON text)", use the following JSON document:
-        ```javascript
+    
+        ```
         {
           "rss": "http://feeds.feedburner.com/AmazonWebServicesBlog", 
           "bucket": "YOUR_BUCKET_NAME"
