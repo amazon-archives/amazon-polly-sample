@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger("boto3").setLevel(logging.WARNING)
+
+
 import boto3
 import os
 import feedparser
 from boto3 import Session
 from boto3 import resource
 from botocore.exceptions import BotoCoreError, ClientError
-import logging
 from contextlib import closing
 from HTMLParser import HTMLParser
 from feedgen.feed import FeedGenerator
@@ -35,7 +39,7 @@ def split_content_by_dot(soup, max_len):
             return
         max = start + max_len
         index = text.rfind(".", start, max)
-        if index == 0:
+        if index == start:
             start += 1
         elif index < 0:
             yield text[start:max]
@@ -69,9 +73,6 @@ def get_entries(feed):
 
 
 def lambda_handler(event, context):
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger("boto3").setLevel(logging.WARNING)
-
     rss = event['rss']
     bucket_name = event['bucket']
     logging.info("Processing url: %s" % rss)
@@ -104,7 +105,7 @@ def lambda_handler(event, context):
         fe.published(entry['published'])
         entry_url = ENTRY_URL.format(bucket=bucket_name, filename=filename)
         fe.enclosure(entry_url, 0, 'audio/mpeg')
-        if filename in files and False:
+        if filename in files:
             logging.info('Article "%s" with id %s already exist, skipping.'
                          % (entry['title'], entry['id']))
             continue
