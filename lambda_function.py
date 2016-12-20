@@ -95,7 +95,7 @@ def lambda_handler(event, context):
     fg.link(href=feed.feed.link, rel='alternate')
     fg.subtitle(feed.feed.description)
 
-    ENTRY_URL = "https://s3.amazonaws.com/{bucket}/{filename}"
+    ENTRY_URL = "http://{bucket}.s3-website.{region}.amazonaws.com/{filename}"
 
     for entry in get_entries(feed):
         filename = "%s.mp3" % entry['id']
@@ -103,7 +103,7 @@ def lambda_handler(event, context):
         fe.id(entry['id'])
         fe.title(entry['title'])
         fe.published(entry['published'])
-        entry_url = ENTRY_URL.format(bucket=bucket_name, filename=filename)
+        entry_url = ENTRY_URL.format(bucket=bucket_name, filename=filename, region=os.environ["AWS_REGION"])
         fe.enclosure(entry_url, 0, 'audio/mpeg')
         if filename in files:
             logging.info('Article "%s" with id %s already exist, skipping.'
