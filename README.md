@@ -72,6 +72,7 @@ Some technical experience is required to setup your own instance of the app, but
         Make sure to substitute YOUR_BUCKET_NAME, and feel free to change rss into any RSS URL.
     * Click "Save and test" and wait until the function is finished. Keep in mind that it may take a while to retrieve, convert and store the content.
     * Go back to your newly created S3 bucket to see if it contains any new content.
+
 ## CloudWatch
 1. Go to Amazon CloudWatch, which will be used to periodically trigger your lambda function.
     * Go to "Events" and click "Create rule".
@@ -89,6 +90,7 @@ Some technical experience is required to setup your own instance of the app, but
 3. Choose an arbitrary name and click "Create rule".
 4. Go back to your S3 bucket, click on the podcast.xml file that was previously created there, and open "Properties".
 5. Copy link and use it in any Podcast player (like iTunes or any Podcast app in Android). Optionally, use any URL shortener (like bit.ly) to create a short version of the link.
+
 ## Summary
 That's it! Your podcast is ready. Use it on your own, or share the URL with your friends. Optionally publish it as an audio version of your own blog (if you are the content owner).
 
