@@ -42,12 +42,19 @@ Some technical experience is required to setup your own instance of the app, but
     
         ```
         {
-        "Version": "2012-10-17",
-        "Statement": [{
-            "Effect": "Allow",
-            "Action": "*",
-            "Resource": "*"
-        }]}
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "polly:SynthesizeSpeech",
+                        "s3:ListBucket",
+                        "s3:PutObject"
+                    ],
+                    "Resource": "*"
+                }
+            ]
+        }
         ```
     * Click the "Allow" button at the bottom of the page, which will close the tab and get you back to the Lambda function settings.
 6. Change the Timeout to 5 min 0 seconds.
