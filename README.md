@@ -2,13 +2,8 @@
 
 ## Console
 ```
-$ mkdir 3camp
-$ virtualenv env 
-$ source env/bin/activate
-$ pip install awscli
 $ git clone https://github.com/awslabs/amazon-polly-sample.git
 $ cd amazon-polly-sample
-$ git checkout 3camp
 ```
 
 [http://bit.ly/3camp2017](http://bit.ly/3camp2017)
