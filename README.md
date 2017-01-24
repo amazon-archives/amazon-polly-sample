@@ -1,11 +1,5 @@
 # 3Camp
 
-## Console
-```
-$ git clone https://github.com/awslabs/amazon-polly-sample.git
-$ cd amazon-polly-sample
-```
-
 [http://bit.ly/3camp2017](http://bit.ly/3camp2017)
 
 ## AWS CodeCommit
@@ -13,6 +7,8 @@ Create repo
 
 ## Console
 ```
+$ git clone https://github.com/awslabs/amazon-polly-sample.git
+$ cd amazon-polly-sample
 $ git remote add aws https://git-codecommit.us-east-1.amazonaws.com/v1/repos/YOUR_REPO
 $ git push aws --all
 ```
