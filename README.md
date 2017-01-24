@@ -1,3 +1,67 @@
+# 3Camp
+
+## Console
+```
+$ mkdir 3camp
+$ virtualenv env 
+$ source env/bin/activate
+$ pip install awscli
+$ git clone https://github.com/awslabs/amazon-polly-sample.git
+$ cd amazon-polly-sample
+$ git checkout 3camp
+```
+
+[http://bit.ly/3camp2017](http://bit.ly/3camp2017)
+
+## AWS CodeCommit
+Create repo
+
+## Console
+```
+$ git remote add aws https://git-codecommit.us-east-1.amazonaws.com/v1/repos/YOUR_REPO
+$ git push aws --all
+```
+
+## Amazon S3
+Create bucket
+
+## AWS CodeBuild
+
+## AWS Lambda
+Create deploy function
+Create prod function
+```
+console.log('Loading function');
+var AWS = require('aws-sdk');
+var lambda = new AWS.Lambda();
+exports.handler = function(event, context) {
+    key = event.Records[0].s3.object.key
+    bucket = event.Records[0].s3.bucket.name
+    version = event.Records[0].s3.object.versionId
+        var functionName = "blog";
+        console.log("uploaded to lambda function: " + functionName);
+        var params = {
+            FunctionName: functionName,
+            S3Key: key,
+            S3Bucket: bucket,
+            S3ObjectVersion: version
+        };
+        lambda.updateFunctionCode(params, function(err, data) {
+            if (err) {
+                console.log(err, err.stack);
+                context.fail(err);
+            } else {
+                console.log(data);
+                context.succeed(data);
+            }
+        });
+};
+```
+
+## AWS CodePipeline
+
+# End of 3camp part
+
 # Amazon Polly Sample
 This app allows you to easily convert any publicly available RSS content into audio Podcasts, so you can listen to your favorite blogs on mobile devices instead of reading them.
 
@@ -42,19 +106,12 @@ Some technical experience is required to setup your own instance of the app, but
     
         ```
         {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Action": [
-                        "polly:SynthesizeSpeech",
-                        "s3:ListBucket",
-                        "s3:PutObject"
-                    ],
-                    "Resource": "*"
-                }
-            ]
-        }
+        "Version": "2012-10-17",
+        "Statement": [{
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }]}
         ```
     * Click the "Allow" button at the bottom of the page, which will close the tab and get you back to the Lambda function settings.
 6. Change the Timeout to 5 min 0 seconds.
@@ -72,7 +129,6 @@ Some technical experience is required to setup your own instance of the app, but
         Make sure to substitute YOUR_BUCKET_NAME, and feel free to change rss into any RSS URL.
     * Click "Save and test" and wait until the function is finished. Keep in mind that it may take a while to retrieve, convert and store the content.
     * Go back to your newly created S3 bucket to see if it contains any new content.
-
 ## CloudWatch
 1. Go to Amazon CloudWatch, which will be used to periodically trigger your lambda function.
     * Go to "Events" and click "Create rule".
@@ -90,7 +146,6 @@ Some technical experience is required to setup your own instance of the app, but
 3. Choose an arbitrary name and click "Create rule".
 4. Go back to your S3 bucket, click on the podcast.xml file that was previously created there, and open "Properties".
 5. Copy link and use it in any Podcast player (like iTunes or any Podcast app in Android). Optionally, use any URL shortener (like bit.ly) to create a short version of the link.
-
 ## Summary
 That's it! Your podcast is ready. Use it on your own, or share the URL with your friends. Optionally publish it as an audio version of your own blog (if you are the content owner).
 
