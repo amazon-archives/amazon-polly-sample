@@ -18,6 +18,7 @@ from feedgen.feed import FeedGenerator
 from bs4 import BeautifulSoup
 import datetime
 import dateutil.parser
+import hashlib
 
 MAX_TPS = 10
 MAX_CONCURENT_CONNECTIONS = 20
@@ -52,6 +53,9 @@ def split_content_by_dot(soup, max_len):
 def get_entries(feed):
     NEW_POST = u"""New post, author {author}, title {title} {content}"""
     for entry in feed.entries:
+        if "http" in entry.id:
+            nid = hashlib.md5(str(entry.id))
+            entry.id = nid.hexdigest()
         entry_content = entry.content[0].value
         soup = BeautifulSoup(entry_content, 'html.parser')
         chunks = split_content_by_dot(soup, REQUEST_LIMIT-len(NEW_POST))
